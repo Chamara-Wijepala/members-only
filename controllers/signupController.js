@@ -20,10 +20,8 @@ const createUser = (req, res) => {
 			hashedPassword
 		);
 
-		console.log(newUser);
+		res.redirect('/login');
 	});
-
-	res.redirect('/sign-up');
 };
 
 module.exports = {
