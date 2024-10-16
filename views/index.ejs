@@ -3,15 +3,9 @@
 <%- include('./partials/head.ejs') %>
 
 <body>
-  <% if (locals.currentUser) { %>
   <h1>Welcome, <%= currentUser.username %></h1>
   <a href="/logout">Log Out</a>
-  <% } else { %>
-  <h1>Welcome</h1>
-  <p>
-    <a href="/login">Log in</a> or <a href="/sign-up">Sign up</a>
-  </p>
-  <% } %>
+  <a href="/messages">Message Board</a>
 </body>
 
 </html>

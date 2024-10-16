@@ -6,6 +6,7 @@ const pool = require('./db/pool');
 const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const messageRoutes = require('./routes/messageRoutes');
+const isAuth = require('./middleware/isAuth');
 
 const pgSession = require('connect-pg-simple')(session);
 
@@ -36,9 +37,6 @@ app.use((req, res, next) => {
 
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-	res.render('index');
-});
 app.use('/sign-up', signupRoutes);
 app.use('/login', loginRoutes);
 app.use('/logout', (req, res, next) => {
@@ -47,6 +45,13 @@ app.use('/logout', (req, res, next) => {
 		res.redirect('/');
 	});
 });
-app.use('/messages', messageRoutes);
+
+// Apply isAuth middleware to all routes after this point.
+app.use(isAuth);
+
+app.get('/', isAuth, (req, res) => {
+	res.render('index');
+});
+app.use('/messages', isAuth, messageRoutes);
 
 app.listen(3000, () => console.log('Server running.'));
