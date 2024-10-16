@@ -57,6 +57,20 @@ async function getMessagesFull() {
 	return rows;
 }
 
+async function insertMessage(title, body, timestamp, userId) {
+	const { rowCount } = await pool.query(
+		`
+		INSERT INTO messages (title, body, timestamp, user_id)
+		VALUES ($1, $2, $3, $4)
+		`,
+		[title, body, timestamp, userId]
+	);
+
+	if (rowCount === 0) {
+		throw new Error('There was an error while posting the message');
+	}
+}
+
 module.exports = {
 	insertUser,
 	getUserByUsername,
@@ -64,4 +78,5 @@ module.exports = {
 	getMessagesPartial,
 	grantMembership,
 	getMessagesFull,
+	insertMessage,
 };

@@ -12,6 +12,21 @@ const getMessages = async (req, res) => {
 	res.render('messages', { messages });
 };
 
+const createMessage = async (req, res) => {
+	const { title, body } = req.body;
+	const timestamp = new Date();
+	const { id } = req.user;
+
+	try {
+		await db.insertMessage(title, body, timestamp, id);
+	} catch (error) {
+		console.error(error);
+	} finally {
+		res.redirect('/messages');
+	}
+};
+
 module.exports = {
 	getMessages,
+	createMessage,
 };
