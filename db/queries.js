@@ -46,10 +46,22 @@ async function getMessagesPartial() {
 	return rows;
 }
 
+async function getMessagesFull() {
+	const { rows } = await pool.query(
+		`
+		SELECT messages.id, title, body, timestamp, username
+		FROM messages
+		JOIN users ON messages.user_id = users.id
+		`
+	);
+	return rows;
+}
+
 module.exports = {
 	insertUser,
 	getUserByUsername,
 	getUserById,
 	getMessagesPartial,
 	grantMembership,
+	getMessagesFull,
 };

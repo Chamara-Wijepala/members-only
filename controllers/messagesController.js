@@ -1,10 +1,11 @@
 const db = require('../db/queries');
 
 const getMessages = async (req, res) => {
-	const isMember = req.user.is_member;
 	let messages;
 
-	if (!isMember) {
+	if (req.user.is_member) {
+		messages = await db.getMessagesFull();
+	} else {
 		messages = await db.getMessagesPartial();
 	}
 

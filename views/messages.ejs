@@ -9,6 +9,14 @@
     <div>
       <% messages.forEach(message => { %>
       <div>
+        <!-- If user is a member -->
+        <% if (message.username) { %>
+        <div>
+          <p><%= message.username %></p>
+          <p><%= message.timestamp %></p>
+        </div>
+        <% } %>
+
         <h3><%= message.title %></h3>
         <p><%= message.body %></p>
       </div>
