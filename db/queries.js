@@ -7,7 +7,7 @@ async function insertUser(firstName, lastName, username, password) {
 		`
     INSERT INTO users (firstname, lastname, username, password)
     VALUES ($1, $2, $3, $4)
-    RETURNING username, password
+    RETURNING id, username
     `,
 		[firstName, lastName, username, password]
 	);

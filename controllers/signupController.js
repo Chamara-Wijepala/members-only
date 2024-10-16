@@ -5,7 +5,7 @@ const getSignupPage = (req, res) => {
 	res.render('sign-up');
 };
 
-const createUser = (req, res) => {
+const createUser = (req, res, next) => {
 	const { firstName, lastName, username, password } = req.body;
 
 	// Usually, the salt is stored in the database alongside the hash, but in this
@@ -20,7 +20,11 @@ const createUser = (req, res) => {
 			hashedPassword
 		);
 
-		res.redirect('/login');
+		req.login(newUser, (err) => {
+			if (err) return next(err);
+
+			res.redirect('/');
+		});
 	});
 };
 
