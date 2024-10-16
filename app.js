@@ -5,6 +5,7 @@ const passport = require('passport');
 const pool = require('./db/pool');
 const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 
 const pgSession = require('connect-pg-simple')(session);
 
@@ -46,5 +47,6 @@ app.use('/logout', (req, res, next) => {
 		res.redirect('/');
 	});
 });
+app.use('/messages', messageRoutes);
 
 app.listen(3000, () => console.log('Server running.'));

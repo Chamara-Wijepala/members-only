@@ -26,8 +26,16 @@ async function getUserById(id) {
 	return rows[0];
 }
 
+// Messages
+
+async function getMessagesPartial() {
+	const { rows } = await pool.query('SELECT title, body FROM messages');
+	return rows;
+}
+
 module.exports = {
 	insertUser,
 	getUserByUsername,
 	getUserById,
+	getMessagesPartial,
 };

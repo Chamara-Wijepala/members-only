@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+<body>
+  <main>
+    <h2>Messages</h2>
+
+    <div>
+      <% messages.forEach(message => { %>
+      <div>
+        <h3><%= message.title %></h3>
+        <p><%= message.body %></p>
+      </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+
+</html>
