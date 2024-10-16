@@ -1,18 +1,21 @@
 const express = require('express');
+const passport = require('passport');
 const loginController = require('../controllers/loginController');
-const validateLogin = require('../validators/loginValidator');
-const checkValidationErrors = require('../middleware/checkValidationErrors');
 
 const router = express.Router();
 
 router.get('/', loginController.getLoginPage);
-// Validates and checks for any errors. Doing it this way ensures that when
-// control is passed to the controller, all the data it receives is valid.
+/*
+passport.authenticate looks at the request body for parameters named 'username'
+and 'password' and passes them to the verify callback defined in
+config/passport.js.
+*/
 router.post(
 	'/',
-	validateLogin,
-	checkValidationErrors,
-	loginController.loginUser
+	passport.authenticate('local', {
+		successRedirect: '/',
+		failureRedirect: '/',
+	})
 );
 
 module.exports = router;

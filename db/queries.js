@@ -1,5 +1,7 @@
 const pool = require('./pool');
 
+// Users
+
 async function insertUser(firstName, lastName, username, password) {
 	const { rows } = await pool.query(
 		`
@@ -12,6 +14,20 @@ async function insertUser(firstName, lastName, username, password) {
 	return rows[0];
 }
 
+async function getUserByUsername(username) {
+	const { rows } = await pool.query('SELECT * FROM users WHERE username = $1', [
+		username,
+	]);
+	return rows[0];
+}
+
+async function getUserById(id) {
+	const { rows } = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+	return rows[0];
+}
+
 module.exports = {
 	insertUser,
+	getUserByUsername,
+	getUserById,
 };
