@@ -3,15 +3,21 @@
 <%- include('./partials/head.ejs') %>
 
 <body>
-  <form action="/login" method="post">
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required>
+  <main>
+    <h2>Log In</h2>
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
+    <form action="/login" method="post">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" required>
 
-    <button type="submit">Log In</button>
-  </form>
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required>
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <p>Don't have an account? <a href="/sign-up">Sign Up</a>.</p>
+  </main>
 </body>
 
 </html>
