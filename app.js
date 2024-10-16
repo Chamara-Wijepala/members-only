@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const pool = require('./db/pool');
+const db = require('./db/queries');
 const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const messageRoutes = require('./routes/messageRoutes');
@@ -53,5 +54,18 @@ app.get('/', isAuth, (req, res) => {
 	res.render('index');
 });
 app.use('/messages', isAuth, messageRoutes);
+app.post('/membership', async (req, res) => {
+	const { memberPassword } = req.body;
+
+	if (memberPassword === 'foo') {
+		try {
+			await db.grantMembership(req.user.id);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			res.redirect('/');
+		}
+	}
+});
 
 app.listen(3000, () => console.log('Server running.'));

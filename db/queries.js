@@ -26,6 +26,19 @@ async function getUserById(id) {
 	return rows[0];
 }
 
+async function grantMembership(id) {
+	const { rowCount } = await pool.query(
+		`
+		UPDATE users SET is_member = true WHERE id = $1
+		`,
+		[id]
+	);
+
+	if (rowCount === 0) {
+		throw new Error('There was an error updating membership status');
+	}
+}
+
 // Messages
 
 async function getMessagesPartial() {
@@ -38,4 +51,5 @@ module.exports = {
 	getUserByUsername,
 	getUserById,
 	getMessagesPartial,
+	grantMembership,
 };
