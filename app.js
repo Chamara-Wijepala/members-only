@@ -50,10 +50,10 @@ app.use('/logout', (req, res, next) => {
 // Apply isAuth middleware to all routes after this point.
 app.use(isAuth);
 
-app.get('/', isAuth, (req, res) => {
+app.get('/', (req, res) => {
 	res.render('index');
 });
-app.use('/messages', isAuth, messageRoutes);
+app.use('/messages', messageRoutes);
 app.post('/membership', async (req, res) => {
 	const { memberPassword } = req.body;
 
