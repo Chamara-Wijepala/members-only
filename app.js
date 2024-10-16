@@ -40,5 +40,11 @@ app.get('/', (req, res) => {
 });
 app.use('/sign-up', signupRoutes);
 app.use('/login', loginRoutes);
+app.use('/logout', (req, res, next) => {
+	req.logout((err) => {
+		if (err) return next();
+		res.redirect('/');
+	});
+});
 
 app.listen(3000, () => console.log('Server running.'));
