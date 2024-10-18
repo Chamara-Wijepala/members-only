@@ -65,6 +65,8 @@ app.post('/membership', async (req, res) => {
 		} finally {
 			res.redirect('/');
 		}
+	} else {
+		res.redirect('/');
 	}
 });
 app.post('/admin', async (req, res) => {
