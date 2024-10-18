@@ -67,5 +67,20 @@ app.post('/membership', async (req, res) => {
 		}
 	}
 });
+app.post('/admin', async (req, res) => {
+	const { adminPassword } = req.body;
+
+	if (adminPassword === 'bar') {
+		try {
+			await db.grantAdminPrivilege(req.user.id);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			res.redirect('/');
+		}
+	} else {
+		res.redirect('/');
+	}
+});
 
 app.listen(3000, () => console.log('Server running.'));

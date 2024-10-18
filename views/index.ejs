@@ -8,6 +8,10 @@
   <p>You are a member.</p>
   <% } %>
 
+  <% if (currentUser.is_admin) { %>
+  <p>You are an admin.</p>
+  <% } %>
+
   <a href="/logout">Log Out</a>
   <a href="/messages">Message Board</a>
 
@@ -16,6 +20,15 @@
   <form action="/membership" method="post">
     <label for="membership-password">Password</label>
     <input type="text" name="memberPassword" id="membership-password" required>
+    <button type="submit">Submit</button>
+  </form>
+  <% } %>
+
+  <% if (!currentUser.is_admin) { %>
+  <h2>Get Administrator Privileges</h2>
+  <form action="/admin" method="post">
+    <label for="admin-password">Password</label>
+    <input type="text" name="adminPassword" id="admin-password" required>
     <button type="submit">Submit</button>
   </form>
   <% } %>

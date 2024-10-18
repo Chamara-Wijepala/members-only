@@ -39,6 +39,19 @@ async function grantMembership(id) {
 	}
 }
 
+async function grantAdminPrivilege(id) {
+	const { rowCount } = await pool.query(
+		`
+		UPDATE users SET is_admin = true WHERE id = $1
+		`,
+		[id]
+	);
+
+	if (rowCount === 0) {
+		throw new Error('There was an error updating admin status');
+	}
+}
+
 // Messages
 
 async function getMessagesPartial() {
@@ -77,6 +90,7 @@ module.exports = {
 	getUserById,
 	getMessagesPartial,
 	grantMembership,
+	grantAdminPrivilege,
 	getMessagesFull,
 	insertMessage,
 };
