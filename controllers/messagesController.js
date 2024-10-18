@@ -26,7 +26,20 @@ const createMessage = async (req, res) => {
 	}
 };
 
+const deleteMessage = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		await db.deleteMessageById(id);
+
+		res.sendStatus(200);
+	} catch (error) {
+		console.error(error);
+	}
+};
+
 module.exports = {
 	getMessages,
 	createMessage,
+	deleteMessage,
 };

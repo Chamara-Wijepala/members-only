@@ -84,6 +84,16 @@ async function insertMessage(title, body, timestamp, userId) {
 	}
 }
 
+async function deleteMessageById(id) {
+	const { rowCount } = await pool.query(`DELETE FROM messages WHERE id = $1`, [
+		id,
+	]);
+
+	if (rowCount === 0) {
+		throw new Error('There was an error while deleting the message');
+	}
+}
+
 module.exports = {
 	insertUser,
 	getUserByUsername,
@@ -93,4 +103,5 @@ module.exports = {
 	grantAdminPrivilege,
 	getMessagesFull,
 	insertMessage,
+	deleteMessageById,
 };

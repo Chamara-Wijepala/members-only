@@ -32,10 +32,32 @@
 
         <h3><%= message.title %></h3>
         <p><%= message.body %></p>
+
+        <% if (currentUser.is_admin) { %>
+        <button class="delete-btn" data-id="<%= message.id %>">Delete</button>
+        <% } %>
       </div>
       <% }) %>
     </div>
   </main>
 </body>
+
+<script>
+  const deleteButtons = document.querySelectorAll('.delete-btn')
+
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', async () => {
+      const messageId = button.getAttribute('data-id');
+
+      const response = await fetch(`/messages/${messageId}`, {
+        method: 'DELETE'
+      })
+
+      if (response.status === 200) {
+        location.reload()
+      }
+    })
+  })
+</script>
 
 </html>
